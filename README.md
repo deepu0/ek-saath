@@ -2,7 +2,9 @@
 
 [![MIT License](https://img.shields.io/badge/license-MIT-green)](#license) [![Chrome](https://img.shields.io/badge/Chrome-MV3-blue)](manifest.json)
 
-Sab tabs ek saath. `1,2,3,4,1,3,4,2` → `1·1·1 — 2·2 — 3·3 — 4`
+Stop hunting tabs. Same domain together, duplicates shown, extras closed in one click.
+
+`1,2,3,4,1,3,4,2` → `1·1·1 — 2·2 — 3·3 — 4` — sab ek saath.
 
 ![Banner](screenshots/banner-1280x800.png)
 

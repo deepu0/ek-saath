@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "EkSaath — Group Tabs by Domain",
   "version": "1.2.0",
-  "description": "Fix scattered tabs. Ek saath lao — 1·1·1 — 2·2 — 3·3. For tab hoarders.",
+  "description": "Stop hunting tabs. Same domain together, duplicates shown, extras closed in one click.",
   "version_name": "1.2.0",
   "author": { "email": "support@example.com" },
   "permissions": ["tabs", "storage"],
