@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Domain Grouper — Options</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Fraunces:opsz,wght@9..144,700;9..144,900&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#F6F1EA;--ink:#0E0E0E;--accent:#FF3B1F;--line:#0E0E0E;--muted:#8A857E;--field:#ECE7DE}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"JetBrains Mono",monospace}
+.wrap{max-width:640px;margin:32px auto;padding:0 18px}
+.top{border:1.5px solid var(--line);background:white;display:grid;grid-template-columns:1fr 140px}
+.top-left{padding:18px}
+.eyebrow{font-size:9px;letter-spacing:.14em;font-weight:700;color:var(--muted)}
+h1{font-family:"Fraunces",serif;font-weight:900;font-size:34px;margin:6px 0 8px;letter-spacing:-.02em;line-height:.9}
+h1 i{color:var(--accent);font-style:normal}
+.sub{font-size:11px;line-height:1.5;border-left:2.5px solid var(--accent);padding-left:8px}
+.top-right{background:var(--ink);color:var(--paper);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px}
+.card{border:1.5px solid var(--line);background:white;margin-top:14px}
+.card-head{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1.5px solid var(--line);background:var(--paper)}
+.card-head b{font-size:10px;letter-spacing:.1em}
+.card-body{padding:14px}
+.row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px dashed #D8D3C8}
+.row:last-child{border:none}
+.row div:first-child b{font-size:12px;display:block}
+.row div:first-child span{font-size:11px;color:#555}
+.switch{width:32px;height:18px;border:1.2px solid var(--line);background:white;position:relative;cursor:pointer;flex-shrink:0}
+.switch::after{content:"";position:absolute;top:2px;left:2px;width:10px;height:10px;background:var(--line);transition:.14s}
+.switch.on{background:var(--accent)}
+.switch.on::after{left:18px;background:white}
+textarea{width:100%;height:64px;border:1px solid var(--line);background:var(--field);font-family:"JetBrains Mono",monospace;font-size:11px;padding:8px}
+small{color:var(--muted);font-size:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="top-left">
+      <div class="eyebrow">CONFIGURATION — 01</div>
+      <h1><i>Domain</i> Grouper</h1>
+      <div class="sub">Fix scattered tabs → <b>1·1·1 — 2·2 — 3·3 — 4</b><br>Reorder only. Stable sort.</div>
+    </div>
+    <div class="top-right"><b>01</b><span style="font-size:9px;letter-spacing:.12em">UTILITY</span><span style="font-size:8px;opacity:.6">v1.1</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><b>SETTINGS</b><span style="font-size:9px;letter-spacing:.08em;color:var(--muted)">STORED LOCALLY</span></div>
+    <div class="card-body">
+      <div class="row"><div><b>Group by root domain</b><span>mail.google.com + docs.google.com = one block</span></div><div class="switch on" id="groupByRoot"></div></div>
+      <div class="row"><div><b>Auto reorder</b><span>Group automatically when new tabs open</span></div><div class="switch" id="autoReorder"></div></div>
+      <div class="row"><div><b>Scope: all windows</b><span>Off = current window only</span></div><div class="switch" id="scopeAllWindows"></div></div>
+      <div class="row"><div><b>Dedupe exact URL</b><span>Close new tab if same URL exists → focus old, badge dup, 10s undo</span></div><div class="switch" id="dedupeEnabled"></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><b>DEDUPE WHITELIST</b><span style="font-size:9px;color:var(--muted)">NEVER CLOSE</span></div>
+    <div class="card-body">
+      <textarea id="whitelist" placeholder="mail.google.com, docs.google.com, localhost"></textarea>
+      <small>Comma separated. Matches host or substring. Never dedupe: pinned, chrome://newtab, localhost.</small>
+      <div style="margin-top:8px"><button id="saveWl" style="border:1px solid var(--line);background:var(--ink);color:white;font-family:monospace;padding:6px 12px;cursor:pointer">SAVE WHITELIST</button> <small id="wlStatus" style="margin-left:8px"></small></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><b>RULES</b></div>
+    <div class="card-body" style="font-size:11px;line-height:1.6">
+      • Reorder: bulk move after pinned, alphabetical. Pinned + protected stay.<br>
+      • Dedupe: exact URL string match, current window only, close new → focus old.<br>
+      • Shortcut: <kbd>Alt+Shift+R</kbd>
+    </div>
+  </div>
+</div>
+<script src="options.js"></script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Fraunces:opsz,wght@9..144,700;9..144,900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+:root{--paper:#F6F1EA;--ink:#0E0E0E;--accent:#FF3B1F;--line:#0E0E0E;--muted:#8A857E}
+body{width:340px;margin:0;background:var(--paper);color:var(--ink);font-family:"JetBrains Mono",monospace;border:1.5px solid var(--line)}
+.frame{padding:14px}
+.eyebrow{display:flex;justify-content:space-between;font-size:9px;letter-spacing:.13em;font-weight:700;color:var(--muted);border-bottom:1px solid #D8D3C8;padding-bottom:7px;margin-bottom:10px}
+h1{font-family:"Fraunces",serif;font-weight:900;font-size:24px;margin:0;letter-spacing:-.02em;line-height:1}
+h1 i{color:var(--accent);font-style:normal}
+.desc{margin:6px 0 10px;font-size:10px;line-height:1.4;color:#2b2b2b}
+.btn-primary{width:100%;height:40px;background:var(--ink);color:var(--paper);border:1.5px solid var(--line);font-weight:700;letter-spacing:.06em;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.btn-secondary{width:100%;height:30px;background:white;border:1px solid var(--line);font-weight:600;font-size:10px;cursor:pointer}
+.btn-secondary:disabled{opacity:.35;cursor:not-allowed}
+.btn-dedup{width:100%;height:30px;background:var(--paper);border:1px solid var(--line);font-weight:600;font-size:10px;cursor:pointer}
+.btn-dedup.hasdup{border-color:var(--accent);color:var(--accent)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px}
+.stat{border:1px solid var(--line);background:white;padding:7px 8px}
+.stat label{font-size:7px;letter-spacing:.1em;color:var(--muted);font-weight:700}
+.stat b{font-size:11px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.divider{border:none;border-top:1px dashed #D8D3C8;margin:10px 0}
+.basic .tog{display:flex;justify-content:space-between;align-items:center;background:white;border:1px solid #D8D3C8;padding:7px 10px;cursor:pointer}
+.tog span{font-size:10px;font-weight:700}
+.tog em{font-weight:400;color:#555}
+.switch{width:24px;height:14px;border:1px solid var(--line);background:white;position:relative;flex-shrink:0}
+.switch::after{content:"";position:absolute;top:2px;left:2px;width:8px;height:8px;background:var(--line);transition:.14s}
+.switch.on{background:var(--accent)}
+.switch.on::after{left:12px;background:white}
+details{border:1px solid #D8D3C8;background:white}
+details summary{list-style:none;cursor:pointer;padding:8px 10px;font-size:10px;font-weight:700;letter-spacing:.06em;display:flex;justify-content:space-between;align-items:center}
+details summary::-webkit-details-marker{display:none}
+details[open] summary{border-bottom:1px solid #D8D3C8}
+.adv{padding:8px 10px;display:flex;flex-direction:column;gap:6px}
+.adv .tog{border-color:#E8E0D2}
+.undo-link{font-size:9px;text-align:center;color:var(--accent);cursor:pointer;text-decoration:underline;display:none;margin-top:6px}
+.undo-link.show{display:block}
+.status{min-height:10px;text-align:center;font-size:9px;font-weight:700;color:var(--accent);margin-top:6px}
+.foot{margin-top:8px;display:flex;justify-content:space-between;font-size:9px;color:var(--muted);border-top:1px solid #D8D3C8;padding-top:7px}
+.foot a{color:var(--ink);font-weight:700;text-decoration:none;border-bottom:1px solid var(--ink)}
+</style>
+</head>
+<body>
+<div class="frame">
+  <div class="eyebrow"><span>DOMAIN GROUPER</span><span>v1.2</span></div>
+  <h1><i>Group</i> tabs</h1>
+  <div class="desc">Fix scattered tabs → <b>1·1·1 — 2·2 — 3·3</b> · Reorder only</div>
+
+  <!-- BASIC always -->
+  <div class="basic">
+    <button id="reorder" class="btn-primary">REORDER TABS →</button>
+    <div class="grid2">
+      <button id="undo" class="btn-secondary">↩ UNDO</button>
+      <div class="stat"><label>GROUPS</label><b id="count">—</b></div>
+    </div>
+    <div class="grid2">
+      <div class="stat"><label>DUPLICATES</label><b id="dupCount">—</b></div>
+      <button id="bulkClose" class="btn-dedup">CLOSE DUPS</button>
+    </div>
+    <div id="bulkUndo" class="undo-link">↩ Undo bulk close</div>
+    <div id="dedupeUndo" class="undo-link">↩ Undo last dup</div>
+    <div class="tog" id="auto" style="margin-top:8px"><span>AUTO REORDER</span><div class="switch"></div></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ADVANCED collapsible -->
+  <details>
+    <summary>ADVANCED <span>▾</span></summary>
+    <div class="adv">
+      <div class="tog" id="scope"><span>SCOPE <em id="scopeLabel">Current window</em></span><div class="switch"></div></div>
+      <div class="tog" id="groupByRoot"><span>ROOT <em>mail → google</em></span><div class="switch on"></div></div>
+      <div class="tog" id="dedupe"><span>DEDUP ON OPEN <em>exact URL</em></span><div class="switch"></div></div>
+    </div>
+  </details>
+
+  <div id="status" class="status"></div>
+  <div class="foot"><a href="options.html" target="_blank">OPTIONS</a><span>Alt+Shift+R</span></div>
+</div>
+<script src="domain.js"></script>
+<script src="popup.js"></script>
+</body>
+</html>
