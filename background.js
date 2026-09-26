@@ -105,6 +105,9 @@ const STARTUP_GRACE_MS = 20000;   // tabs brought back by session restore are no
 function markNewTab(tab) {
   if (tab.pinned || isOwnCreate(tab)) return;
   knownNewTabs.add(tab.id);
+  // A safety retry catches a very fast redirect where Chromium's final `complete` event races the
+  // first storage write. It is harmless: checkNewTab consumes the mark, so it can act only once.
+  setTimeout(() => checkNewTab(tab.id).catch(e => console.warn("dedupe retry failed", e)), 900);
   // enqueue synchronously so this always runs before the tab's first onUpdated check
   return updatePending(async p => {
     const s = await getSettings();
@@ -137,8 +140,14 @@ async function checkNewTab(tabId) {
     .filter(t => t.id !== tabId && !t.pinned && t.url === url)
     .sort((a, b) => a.index - b.index)[0];
   if (!existing) return;
-  await chrome.tabs.update(existing.id, { active: true });
-  await chrome.tabs.remove(tabId);
+  try {
+    await chrome.tabs.update(existing.id, { active: true });
+    await chrome.tabs.remove(tabId);
+  } catch (e) {
+    // The tab could have been closed while this async check was in flight; nothing to do.
+    if (!String(e && e.message || e).includes("No tab with id")) throw e;
+    return;
+  }
   flashBadge("dup", 1500);
   await chrome.storage.local.set({ lastDedupe: { url, closedAt: Date.now(), windowId: tab.windowId, index: tab.index } });
 }

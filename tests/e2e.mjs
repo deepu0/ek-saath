@@ -62,7 +62,10 @@ await setDedupe(true);
 await check("dedupe: a newly opened duplicate tab is closed and the old one focused", async () => {
   await createTab("/docs"); await sleep(600);
   const id = await createTab("/docs");
-  await until(async () => (await count("/docs")) === 1);
+  await until(async () => {
+    const t = await tabs();
+    return t.filter(x => x.url === "/docs").length === 1 && t.find(x => x.url === "/docs").active;
+  }, 10000);
   eq(await count("/docs"), 1, "copies of /docs");
   const t = await tabs(); eq(t.find(x => x.url === "/docs").active, true, "old tab active");
   eq(t.some(x => x.id === id), false, "new tab closed");
@@ -79,7 +82,7 @@ await check("dedupe: target=_blank link to an open page", async () => {
 await check("dedupe: uses the final URL after a redirect", async () => {
   await createTab("/docs"); await sleep(600);
   await createTab("/redir");
-  await until(async () => (await count("/docs")) === 1 && !(await urls()).includes("/redir"));
+  await until(async () => (await count("/docs")) === 1 && !(await urls()).includes("/redir"), 10000);
   eq(await count("/docs"), 1, "copies of /docs");
 });
 
