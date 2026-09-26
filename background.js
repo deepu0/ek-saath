@@ -72,6 +72,8 @@ async function doUndo() {
 // Pending new tabs live in storage.session so they survive a service-worker restart.
 const PENDING_KEY = "dedupePending";
 const PENDING_MAX_AGE_MS = 10 * 60 * 1000;
+// Set synchronously in onCreated. Chromium can emit onUpdated before the async storage write finishes.
+const knownNewTabs = new Set();
 
 async function getPending() {
   const d = await chrome.storage.session.get(PENDING_KEY);
@@ -102,6 +104,7 @@ const STARTUP_GRACE_MS = 20000;   // tabs brought back by session restore are no
 
 function markNewTab(tab) {
   if (tab.pinned || isOwnCreate(tab)) return;
+  knownNewTabs.add(tab.id);
   // enqueue synchronously so this always runs before the tab's first onUpdated check
   return updatePending(async p => {
     const s = await getSettings();
@@ -115,8 +118,9 @@ function markNewTab(tab) {
 }
 
 async function checkNewTab(tabId) {
-  // through the lock, so a mark still being written by onCreated is always seen
-  if (!(await updatePending(p => !!p[tabId]))) return;   // not a newly opened tab
+  // The in-memory mark covers the onCreated/onUpdated race. The session value covers a worker restart.
+  const isNew = knownNewTabs.has(tabId) || await updatePending(p => !!p[tabId]);
+  if (!isNew) return;
   // Read the tab now instead of trusting the event: events can carry a URL from before a redirect.
   let tab;
   try { tab = await chrome.tabs.get(tabId); } catch { return; }
@@ -124,6 +128,7 @@ async function checkNewTab(tabId) {
   // Not loaded yet, or still on the new-tab page / about:blank — keep waiting for the real page.
   if (tab.status !== "complete" || isBlankUrl(url)) return;
   const pendingAt = await updatePending(p => { const at = p[tabId]; delete p[tabId]; return at; });
+  knownNewTabs.delete(tabId);
   if (!pendingAt || Date.now() - pendingAt > PENDING_MAX_AGE_MS) return;
   const s = await getSettings();
   if (!s.dedupeEnabled || tab.pinned || isNeverDedupeUrl(url, s.dedupeWhitelist)) return;
@@ -256,7 +261,7 @@ chrome.tabs.onUpdated.addListener((tabId, info, tab) => {
   // real page (after redirects) has finished loading. It consumes the tab's mark, so it acts once per tab.
   if (info.status === "complete" || info.url || info.title) checkNewTab(tabId).catch(e => console.warn("dedupe failed", e));
 });
-chrome.tabs.onRemoved.addListener((tabId) => { updatePending(p => { delete p[tabId]; }); });
+chrome.tabs.onRemoved.addListener((tabId) => { knownNewTabs.delete(tabId); updatePending(p => { delete p[tabId]; }); });
 
 chrome.runtime.onInstalled.addListener(() => {
   chrome.storage.local.get(["groupByRoot","autoReorder","scopeAllWindows","dedupeEnabled","dedupeWhitelist"], (v) => {
