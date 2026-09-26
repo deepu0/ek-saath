@@ -14,11 +14,19 @@ Stop hunting tabs. Same domain together, duplicates shown, extras closed in one 
 >
 > The problem: I open the same URL again without realizing. 4 copies of the same docs page, scattered. Now with EkSaath, same domain sits together. I see — "I already have 4 tabs for this" — so I don't open a fifth.
 
-## Screenshots (Chrome DevTools)
+## Launch film
 
-| Popup (real Chrome) | Before → After |
+[![EkSaath launch film](launch-video/preview.gif)](launch-video/eksaath-launch-1920x1080.mp4)
+
+32 s, real extension on real tabs. Click the GIF to open the MP4 with sound ([vertical 9:16](launch-video/eksaath-launch-1080x1920.mp4)). See [how it was made](launch-video/README.md).
+
+## Screenshots
+
+| Group by site | Close duplicates |
 |---|---|
-| ![Popup Chrome](screenshots/store-1-popup-chrome-1280x800.png) | ![Before After](screenshots/store-2-before-after-1280x800.png) |
+| ![Group by site](screenshots/store/2-group-by-site-1280x800.png) | ![Close duplicates](screenshots/store/3-close-duplicates-1280x800.png) |
+| **Dedupe on open** | **Pinned tabs stay put** |
+| ![Dedupe on open](screenshots/store/4-dedupe-on-open-1280x800.png) | ![Pinned](screenshots/store/5-pinned-stay-1280x800.png) |
 
 Minimal, industrial UI. Reorder only — no tab groups clutter.
 
