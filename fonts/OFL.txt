@@ -1,0 +1,7 @@
+Fraunces — Copyright 2020 The Fraunces Project Authors (https://github.com/undercasetype/Fraunces)
+JetBrains Mono — Copyright 2020 The JetBrains Mono Project Authors (https://github.com/JetBrains/JetBrainsMono)
+Noto Sans Math — Copyright 2022 Google LLC (https://github.com/notofonts/math)
+  EkSaathSymbols.woff2 is a two-glyph subset (U+21A9 ↩, U+2713 ✓) of Noto Sans Math.
+
+All fonts are licensed under the SIL Open Font License, Version 1.1:
+https://openfontlicense.org/open-font-license-official-text/
