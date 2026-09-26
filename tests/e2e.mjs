@@ -151,6 +151,31 @@ await check("bulk close + undo restores every tab to its old position", async ()
   } finally { await setDedupe(true); }
 });
 
+await check("all-windows bulk close + undo brings back a window whose only tab was a duplicate", async () => {
+  await setDedupe(false);
+  await sw.evaluate(() => chrome.storage.local.set({ scopeAllWindows: true }));
+  try {
+    await createTab("/x", false);
+    const other = await sw.evaluate(async u => (await chrome.windows.create({ url: u, focused: false })).id, B + "/x");
+    await sleep(1200);
+    const r = await sw.evaluate(() => bulkCloseDuplicates());
+    eq(r, { closed: 1, groups: 1 }, "close result");
+    await sleep(500);
+    const gone = await sw.evaluate(async id => { try { await chrome.windows.get(id); return false; } catch { return true; } }, other);
+    eq(gone, true, "window with only the duplicate closed");
+    eq(await sw.evaluate(() => undoBulkClose()), { ok: true, restored: 1 }, "undo result");
+    await sleep(1000);
+    const wins = await sw.evaluate(async main => (await chrome.windows.getAll({ populate: true }))
+      .filter(w => w.id !== main).map(w => w.tabs.map(t => t.url.replace(/^http:\/\/127\.0\.0\.2:8765/, ""))), win);
+    eq(wins, [["/x"]], "the tab is back in its own window");
+    eq(await urls(), ["/home", "/x"], "main window unchanged");
+    await sw.evaluate(async main => { for (const w of await chrome.windows.getAll()) if (w.id !== main) await chrome.windows.remove(w.id); }, win);
+  } finally {
+    await sw.evaluate(() => chrome.storage.local.set({ scopeAllWindows: false }));
+    await setDedupe(true);
+  }
+});
+
 await check("bulk undo is refused after 30 s (checked in the background)", async () => {
   await sw.evaluate(() => chrome.storage.local.set({ lastBulkClosed: { tabs: [{ url: "https://example.com/", windowId: 1, index: 1 }], urls: ["https://example.com/"], closedAt: Date.now() - 31000 } }));
   eq(await sw.evaluate(() => undoBulkClose()), { error: "expired" }, "expired undo");

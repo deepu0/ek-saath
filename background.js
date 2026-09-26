@@ -114,10 +114,15 @@ function markNewTab(tab) {
   });
 }
 
-async function checkNewTab(tabId, tab) {
+async function checkNewTab(tabId) {
+  // through the lock, so a mark still being written by onCreated is always seen
+  if (!(await updatePending(p => !!p[tabId]))) return;   // not a newly opened tab
+  // Read the tab now instead of trusting the event: events can carry a URL from before a redirect.
+  let tab;
+  try { tab = await chrome.tabs.get(tabId); } catch { return; }
   const url = tab.url;
-  // New-tab page / about:blank are not the page the user asked for yet — keep waiting.
-  if (isBlankUrl(url)) return;
+  // Not loaded yet, or still on the new-tab page / about:blank — keep waiting for the real page.
+  if (tab.status !== "complete" || isBlankUrl(url)) return;
   const pendingAt = await updatePending(p => { const at = p[tabId]; delete p[tabId]; return at; });
   if (!pendingAt || Date.now() - pendingAt > PENDING_MAX_AGE_MS) return;
   const s = await getSettings();
@@ -170,14 +175,26 @@ async function bulkCloseDuplicates() {
   return { closed: toClose.length, groups: new Set(toClose.map(t => t.url)).size };
 }
 
-async function createTabBack({ url, windowId, index }, active) {
+async function windowExists(windowId) {
+  try { await chrome.windows.get(windowId); return true; } catch { return false; }
+}
+
+// Reopen a closed tab where it was. `recreated` maps a window that no longer exists to the window made
+// for it during this undo: closing a window's last tab closes the window, so undo brings the window back.
+async function createTabBack({ url, windowId, index }, active, recreated = new Map()) {
   expectOwnCreate(url);
-  try {
-    await chrome.windows.get(windowId);
-    return await chrome.tabs.create({ url, windowId, index, active });
-  } catch {
-    return await chrome.tabs.create({ url, active });   // window is gone: reopen in the current one
+  if (windowId != null && recreated.has(windowId)) {
+    return await chrome.tabs.create({ url, windowId: recreated.get(windowId), active });
   }
+  if (windowId != null && await windowExists(windowId)) {
+    return await chrome.tabs.create({ url, windowId, index, active });
+  }
+  if (windowId != null) {
+    const w = await chrome.windows.create({ url, focused: active });
+    recreated.set(windowId, w.id);
+    return w.tabs && w.tabs[0];
+  }
+  return await chrome.tabs.create({ url, active });
 }
 
 async function undoBulkClose() {
@@ -188,10 +205,8 @@ async function undoBulkClose() {
   const items = last.tabs || last.urls.map(url => ({ url }));   // `urls` = data saved by 1.2.x
   // ascending index per window: each insert lands exactly where the tab used to be
   const ordered = [...items].sort((a, b) => (a.windowId ?? 0) - (b.windowId ?? 0) || (a.index ?? 0) - (b.index ?? 0));
-  for (const t of ordered) {
-    if (t.windowId == null) { expectOwnCreate(t.url); await chrome.tabs.create({ url: t.url, active: false }); }
-    else await createTabBack(t, false);
-  }
+  const recreated = new Map();
+  for (const t of ordered) await createTabBack(t, false, recreated);
   return { ok: true, restored: ordered.length };
 }
 
@@ -237,9 +252,9 @@ chrome.tabs.onCreated.addListener((tab) => {
 });
 chrome.tabs.onUpdated.addListener((tabId, info, tab) => {
   if (info.url) maybeAutoReorder();
-  // First committed URL (already past HTTP redirects) or first finished load — whichever Chrome reports first.
-  // checkNewTab consumes the tab's pending mark, so it runs at most once per new tab.
-  if ((info.url && !isBlankUrl(info.url)) || info.status === "complete") checkNewTab(tabId, tab).catch(e => console.warn("dedupe failed", e));
+  // Any load/URL/title change of a newly opened tab: checkNewTab re-reads the tab and acts only once the
+  // real page (after redirects) has finished loading. It consumes the tab's mark, so it acts once per tab.
+  if (info.status === "complete" || info.url || info.title) checkNewTab(tabId).catch(e => console.warn("dedupe failed", e));
 });
 chrome.tabs.onRemoved.addListener((tabId) => { updatePending(p => { delete p[tabId]; }); });
 
