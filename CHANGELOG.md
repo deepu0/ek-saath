@@ -1,4 +1,7 @@
 # Changelog
+## 1.2.1 - 2026-09-26
+- Privacy: bundle Fraunces + JetBrains Mono (SIL OFL 1.1) in `fonts/` — the popup and options page no longer request fonts.googleapis.com
+- Remove placeholder author email from manifest; real contact in PRIVACY.md
 ## 1.2.0 - 2026-08-21
 - Bulk close duplicates (exact, keep oldest) + live count pill (groups + extra), follow Scope
 - Bulk undo 30s, minimalist UI: basic always, advanced collapsible

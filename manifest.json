@@ -1,10 +1,9 @@
 {
   "manifest_version": 3,
   "name": "EkSaath — Group Tabs by Domain",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Stop hunting tabs. Same domain together, duplicates shown, extras closed in one click.",
-  "version_name": "1.2.0",
-  "author": { "email": "support@example.com" },
+  "version_name": "1.2.1",
   "permissions": ["tabs", "storage"],
   "incognito": "spanning",
   "background": {
