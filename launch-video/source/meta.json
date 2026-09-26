@@ -1,0 +1,1486 @@
+{
+ "urls": {
+  "MDN": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout",
+  "GH": "https://github.com/facebook/react",
+  "SO": "https://stackoverflow.com/questions/1789945/how-to-check-whether-a-string-contains-a-substring-in-javascript",
+  "PINNED": "https://www.youtube.com/"
+ },
+ "S0": [
+  {
+   "id": 694917539,
+   "index": 0,
+   "url": "https://www.youtube.com/",
+   "title": "YouTube",
+   "fav": "https://www.youtube.com/s/desktop/af0a3c1e/img/favicon.ico",
+   "pinned": true
+  },
+  {
+   "id": 694917540,
+   "index": 1,
+   "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout",
+   "title": "CSS grid layout - CSS | MDN",
+   "fav": "https://developer.mozilla.org/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917541,
+   "index": 2,
+   "url": "https://github.com/react/react",
+   "title": "GitHub - react/react: The library for web and native user interfaces. · GitHub",
+   "fav": "https://github.githubassets.com/favicons/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917542,
+   "index": 3,
+   "url": "https://stackoverflow.com/questions/1789945/how-to-check-whether-a-string-contains-a-substring-in-javascript",
+   "title": "How to check whether a string contains a substring in JavaScript? - Stack Overflow",
+   "fav": "https://stackoverflow.com/Content/Sites/stackoverflow/Img/favicon.svg?v=916c1b91e14c",
+   "pinned": false
+  },
+  {
+   "id": 694917543,
+   "index": 4,
+   "url": "https://en.wikipedia.org/wiki/JavaScript",
+   "title": "JavaScript - Wikipedia",
+   "fav": "https://en.wikipedia.org/static/favicon/wikipedia.ico",
+   "pinned": false
+  },
+  {
+   "id": 694917544,
+   "index": 5,
+   "url": "https://react.dev/learn",
+   "title": "Quick Start – React",
+   "fav": "https://react.dev/favicon-32x32.png",
+   "pinned": false
+  },
+  {
+   "id": 694917545,
+   "index": 6,
+   "url": "https://developers.google.com/",
+   "title": "Google for Developers | Build with Gemini",
+   "fav": "https://www.gstatic.com/devrel-devsite/prod/v5be16d8c9f9402e54c2da2ff24cb75c148f5d2bc84c6f8dfc8b9e16ae456160b/developers/images/favicon-new.png",
+   "pinned": false
+  },
+  {
+   "id": 694917546,
+   "index": 7,
+   "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout",
+   "title": "CSS grid layout - CSS | MDN",
+   "fav": "https://developer.mozilla.org/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917547,
+   "index": 8,
+   "url": "https://www.onlyfrontendjobs.com/jobs",
+   "title": "334 Live Frontend Jobs — React, Vue, Angular | OnlyFrontendJobs",
+   "fav": "https://www.onlyfrontendjobs.com/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917548,
+   "index": 9,
+   "url": "https://github.com/vercel/next.js",
+   "title": "GitHub - vercel/next.js: The React Framework · GitHub",
+   "fav": "https://github.githubassets.com/favicons/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917549,
+   "index": 10,
+   "url": "https://stackoverflow.com/questions/1789945/how-to-check-whether-a-string-contains-a-substring-in-javascript",
+   "title": "How to check whether a string contains a substring in JavaScript? - Stack Overflow",
+   "fav": "https://stackoverflow.com/Content/Sites/stackoverflow/Img/favicon.svg?v=916c1b91e14c",
+   "pinned": false
+  },
+  {
+   "id": 694917550,
+   "index": 11,
+   "url": "https://www.youtube.com/@Fireship",
+   "title": "Fireship - YouTube",
+   "fav": "https://www.youtube.com/s/desktop/af0a3c1e/img/favicon.ico",
+   "pinned": false
+  },
+  {
+   "id": 694917551,
+   "index": 12,
+   "url": "https://en.wikipedia.org/wiki/CSS",
+   "title": "CSS - Wikipedia",
+   "fav": "https://en.wikipedia.org/static/favicon/wikipedia.ico",
+   "pinned": false
+  },
+  {
+   "id": 694917552,
+   "index": 13,
+   "url": "https://fonts.google.com/",
+   "title": "Browse Fonts - Google Fonts",
+   "fav": "https://www.gstatic.com/images/icons/material/apps/fonts/1x/catalog/v5/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917553,
+   "index": 14,
+   "url": "https://github.com/react/react",
+   "title": "GitHub - react/react: The library for web and native user interfaces. · GitHub",
+   "fav": "https://github.githubassets.com/favicons/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917554,
+   "index": 15,
+   "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout",
+   "title": "CSS flexible box layout - CSS | MDN",
+   "fav": "https://developer.mozilla.org/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917555,
+   "index": 16,
+   "url": "https://stackoverflow.com/questions/111102/how-do-javascript-closures-work",
+   "title": "function - How do JavaScript closures work? - Stack Overflow",
+   "fav": "https://stackoverflow.com/Content/Sites/stackoverflow/Img/favicon.svg?v=916c1b91e14c",
+   "pinned": false
+  },
+  {
+   "id": 694917556,
+   "index": 17,
+   "url": "https://react.dev/reference/react",
+   "title": "React Reference Overview – React",
+   "fav": "https://react.dev/favicon-32x32.png",
+   "pinned": false
+  },
+  {
+   "id": 694917557,
+   "index": 18,
+   "url": "https://www.onlyfrontendjobs.com/",
+   "title": "Frontend Developer Jobs — React · Vue · Angular",
+   "fav": "https://www.onlyfrontendjobs.com/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917558,
+   "index": 19,
+   "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout",
+   "title": "CSS grid layout - CSS | MDN",
+   "fav": "https://developer.mozilla.org/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917559,
+   "index": 20,
+   "url": "https://github.com/TanStack/router",
+   "title": "GitHub - TanStack/router: 🤖 A client-first, server-capable, fully type-safe router and full-stack framework for the web (React and more). · GitHub",
+   "fav": "https://github.githubassets.com/favicons/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917560,
+   "index": 21,
+   "url": "https://stackoverflow.com/questions/1789945/how-to-check-whether-a-string-contains-a-substring-in-javascript",
+   "title": "How to check whether a string contains a substring in JavaScript? - Stack Overflow",
+   "fav": "https://stackoverflow.com/Content/Sites/stackoverflow/Img/favicon.svg?v=916c1b91e14c",
+   "pinned": false
+  },
+  {
+   "id": 694917561,
+   "index": 22,
+   "url": "https://en.wikipedia.org/wiki/HTML",
+   "title": "HTML - Wikipedia",
+   "fav": "https://en.wikipedia.org/static/favicon/wikipedia.ico",
+   "pinned": false
+  }
+ ],
+ "S1": [
+  {
+   "id": 694917539,
+   "index": 0,
+   "url": "https://www.youtube.com/",
+   "title": "YouTube",
+   "fav": "https://www.youtube.com/s/desktop/af0a3c1e/img/favicon.ico",
+   "pinned": true
+  },
+  {
+   "id": 694917540,
+   "index": 1,
+   "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout",
+   "title": "CSS grid layout - CSS | MDN",
+   "fav": "https://developer.mozilla.org/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917541,
+   "index": 2,
+   "url": "https://github.com/react/react",
+   "title": "GitHub - react/react: The library for web and native user interfaces. · GitHub",
+   "fav": "https://github.githubassets.com/favicons/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917542,
+   "index": 3,
+   "url": "https://stackoverflow.com/questions/1789945/how-to-check-whether-a-string-contains-a-substring-in-javascript",
+   "title": "How to check whether a string contains a substring in JavaScript? - Stack Overflow",
+   "fav": "https://stackoverflow.com/Content/Sites/stackoverflow/Img/favicon.svg?v=916c1b91e14c",
+   "pinned": false
+  },
+  {
+   "id": 694917543,
+   "index": 4,
+   "url": "https://en.wikipedia.org/wiki/JavaScript",
+   "title": "JavaScript - Wikipedia",
+   "fav": "https://en.wikipedia.org/static/favicon/wikipedia.ico",
+   "pinned": false
+  },
+  {
+   "id": 694917544,
+   "index": 5,
+   "url": "https://react.dev/learn",
+   "title": "Quick Start – React",
+   "fav": "https://react.dev/favicon-32x32.png",
+   "pinned": false
+  },
+  {
+   "id": 694917545,
+   "index": 6,
+   "url": "https://developers.google.com/",
+   "title": "Google for Developers | Build with Gemini",
+   "fav": "https://www.gstatic.com/devrel-devsite/prod/v5be16d8c9f9402e54c2da2ff24cb75c148f5d2bc84c6f8dfc8b9e16ae456160b/developers/images/favicon-new.png",
+   "pinned": false
+  },
+  {
+   "id": 694917546,
+   "index": 7,
+   "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout",
+   "title": "CSS grid layout - CSS | MDN",
+   "fav": "https://developer.mozilla.org/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917547,
+   "index": 8,
+   "url": "https://www.onlyfrontendjobs.com/jobs",
+   "title": "334 Live Frontend Jobs — React, Vue, Angular | OnlyFrontendJobs",
+   "fav": "https://www.onlyfrontendjobs.com/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917548,
+   "index": 9,
+   "url": "https://github.com/vercel/next.js",
+   "title": "GitHub - vercel/next.js: The React Framework · GitHub",
+   "fav": "https://github.githubassets.com/favicons/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917549,
+   "index": 10,
+   "url": "https://stackoverflow.com/questions/1789945/how-to-check-whether-a-string-contains-a-substring-in-javascript",
+   "title": "How to check whether a string contains a substring in JavaScript? - Stack Overflow",
+   "fav": "https://stackoverflow.com/Content/Sites/stackoverflow/Img/favicon.svg?v=916c1b91e14c",
+   "pinned": false
+  },
+  {
+   "id": 694917550,
+   "index": 11,
+   "url": "https://www.youtube.com/@Fireship",
+   "title": "Fireship - YouTube",
+   "fav": "https://www.youtube.com/s/desktop/af0a3c1e/img/favicon.ico",
+   "pinned": false
+  },
+  {
+   "id": 694917551,
+   "index": 12,
+   "url": "https://en.wikipedia.org/wiki/CSS",
+   "title": "CSS - Wikipedia",
+   "fav": "https://en.wikipedia.org/static/favicon/wikipedia.ico",
+   "pinned": false
+  },
+  {
+   "id": 694917552,
+   "index": 13,
+   "url": "https://fonts.google.com/",
+   "title": "Browse Fonts - Google Fonts",
+   "fav": "https://www.gstatic.com/images/icons/material/apps/fonts/1x/catalog/v5/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917553,
+   "index": 14,
+   "url": "https://github.com/react/react",
+   "title": "GitHub - react/react: The library for web and native user interfaces. · GitHub",
+   "fav": "https://github.githubassets.com/favicons/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917554,
+   "index": 15,
+   "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout",
+   "title": "CSS flexible box layout - CSS | MDN",
+   "fav": "https://developer.mozilla.org/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917555,
+   "index": 16,
+   "url": "https://stackoverflow.com/questions/111102/how-do-javascript-closures-work",
+   "title": "function - How do JavaScript closures work? - Stack Overflow",
+   "fav": "https://stackoverflow.com/Content/Sites/stackoverflow/Img/favicon.svg?v=916c1b91e14c",
+   "pinned": false
+  },
+  {
+   "id": 694917556,
+   "index": 17,
+   "url": "https://react.dev/reference/react",
+   "title": "React Reference Overview – React",
+   "fav": "https://react.dev/favicon-32x32.png",
+   "pinned": false
+  },
+  {
+   "id": 694917557,
+   "index": 18,
+   "url": "https://www.onlyfrontendjobs.com/",
+   "title": "Frontend Developer Jobs — React · Vue · Angular",
+   "fav": "https://www.onlyfrontendjobs.com/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917558,
+   "index": 19,
+   "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout",
+   "title": "CSS grid layout - CSS | MDN",
+   "fav": "https://developer.mozilla.org/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917559,
+   "index": 20,
+   "url": "https://github.com/TanStack/router",
+   "title": "GitHub - TanStack/router: 🤖 A client-first, server-capable, fully type-safe router and full-stack framework for the web (React and more). · GitHub",
+   "fav": "https://github.githubassets.com/favicons/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917560,
+   "index": 21,
+   "url": "https://stackoverflow.com/questions/1789945/how-to-check-whether-a-string-contains-a-substring-in-javascript",
+   "title": "How to check whether a string contains a substring in JavaScript? - Stack Overflow",
+   "fav": "https://stackoverflow.com/Content/Sites/stackoverflow/Img/favicon.svg?v=916c1b91e14c",
+   "pinned": false
+  },
+  {
+   "id": 694917561,
+   "index": 22,
+   "url": "https://en.wikipedia.org/wiki/HTML",
+   "title": "HTML - Wikipedia",
+   "fav": "https://en.wikipedia.org/static/favicon/wikipedia.ico",
+   "pinned": false
+  },
+  {
+   "id": 694917562,
+   "index": 23,
+   "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout",
+   "title": "CSS grid layout - CSS | MDN",
+   "fav": "https://developer.mozilla.org/favicon.svg",
+   "pinned": false
+  }
+ ],
+ "pop-before": {
+  "h": 409,
+  "boxes": {
+   "reorder": {
+    "x": 15,
+    "y": 113,
+    "w": 310,
+    "h": 40,
+    "text": "REORDER TABS →",
+    "visible": true
+   },
+   "undo": {
+    "x": 15,
+    "y": 159,
+    "w": 152,
+    "h": 30,
+    "text": "↩ UNDO",
+    "visible": true
+   },
+   "count": {
+    "x": 182,
+    "y": 183,
+    "w": 134,
+    "h": 14,
+    "text": "—",
+    "visible": true
+   },
+   "dupCount": {
+    "x": 24,
+    "y": 235,
+    "w": 134,
+    "h": 14,
+    "text": "3 groups · 6 extra",
+    "visible": true
+   },
+   "bulkClose": {
+    "x": 173,
+    "y": 211,
+    "w": 152,
+    "h": 30,
+    "text": "CLOSE 6",
+    "visible": true
+   },
+   "bulkUndo": {
+    "x": 0,
+    "y": 0,
+    "w": 0,
+    "h": 0,
+    "text": "↩ Undo bulk close",
+    "visible": false
+   },
+   "dedupeUndo": {
+    "x": 0,
+    "y": 0,
+    "w": 0,
+    "h": 0,
+    "text": "↩ Undo last dup",
+    "visible": false
+   },
+   "auto": {
+    "x": 15,
+    "y": 265,
+    "w": 310,
+    "h": 30,
+    "text": "AUTO REORDER",
+    "visible": true
+   },
+   "status": {
+    "x": 15,
+    "y": 353,
+    "w": 310,
+    "h": 10,
+    "text": "",
+    "visible": true
+   },
+   "dedupe": {
+    "x": 26,
+    "y": 426,
+    "w": 288,
+    "h": 30,
+    "text": "",
+    "visible": true
+   }
+  }
+ },
+ "S2": [
+  {
+   "id": 694917539,
+   "index": 0,
+   "url": "https://www.youtube.com/",
+   "title": "YouTube",
+   "fav": "https://www.youtube.com/s/desktop/af0a3c1e/img/favicon.ico",
+   "pinned": true
+  },
+  {
+   "id": 694917541,
+   "index": 1,
+   "url": "https://github.com/react/react",
+   "title": "GitHub - react/react: The library for web and native user interfaces. · GitHub",
+   "fav": "https://github.githubassets.com/favicons/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917548,
+   "index": 2,
+   "url": "https://github.com/vercel/next.js",
+   "title": "GitHub - vercel/next.js: The React Framework · GitHub",
+   "fav": "https://github.githubassets.com/favicons/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917553,
+   "index": 3,
+   "url": "https://github.com/react/react",
+   "title": "GitHub - react/react: The library for web and native user interfaces. · GitHub",
+   "fav": "https://github.githubassets.com/favicons/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917559,
+   "index": 4,
+   "url": "https://github.com/TanStack/router",
+   "title": "GitHub - TanStack/router: 🤖 A client-first, server-capable, fully type-safe router and full-stack framework for the web (React and more). · GitHub",
+   "fav": "https://github.githubassets.com/favicons/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917545,
+   "index": 5,
+   "url": "https://developers.google.com/",
+   "title": "Google for Developers | Build with Gemini",
+   "fav": "https://www.gstatic.com/devrel-devsite/prod/v5be16d8c9f9402e54c2da2ff24cb75c148f5d2bc84c6f8dfc8b9e16ae456160b/developers/images/favicon-new.png",
+   "pinned": false
+  },
+  {
+   "id": 694917552,
+   "index": 6,
+   "url": "https://fonts.google.com/",
+   "title": "Browse Fonts - Google Fonts",
+   "fav": "https://www.gstatic.com/images/icons/material/apps/fonts/1x/catalog/v5/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917540,
+   "index": 7,
+   "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout",
+   "title": "CSS grid layout - CSS | MDN",
+   "fav": "https://developer.mozilla.org/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917546,
+   "index": 8,
+   "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout",
+   "title": "CSS grid layout - CSS | MDN",
+   "fav": "https://developer.mozilla.org/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917554,
+   "index": 9,
+   "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout",
+   "title": "CSS flexible box layout - CSS | MDN",
+   "fav": "https://developer.mozilla.org/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917558,
+   "index": 10,
+   "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout",
+   "title": "CSS grid layout - CSS | MDN",
+   "fav": "https://developer.mozilla.org/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917562,
+   "index": 11,
+   "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout",
+   "title": "CSS grid layout - CSS | MDN",
+   "fav": "https://developer.mozilla.org/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917547,
+   "index": 12,
+   "url": "https://www.onlyfrontendjobs.com/jobs",
+   "title": "334 Live Frontend Jobs — React, Vue, Angular | OnlyFrontendJobs",
+   "fav": "https://www.onlyfrontendjobs.com/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917557,
+   "index": 13,
+   "url": "https://www.onlyfrontendjobs.com/",
+   "title": "Frontend Developer Jobs — React · Vue · Angular",
+   "fav": "https://www.onlyfrontendjobs.com/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917544,
+   "index": 14,
+   "url": "https://react.dev/learn",
+   "title": "Quick Start – React",
+   "fav": "https://react.dev/favicon-32x32.png",
+   "pinned": false
+  },
+  {
+   "id": 694917556,
+   "index": 15,
+   "url": "https://react.dev/reference/react",
+   "title": "React Reference Overview – React",
+   "fav": "https://react.dev/favicon-32x32.png",
+   "pinned": false
+  },
+  {
+   "id": 694917542,
+   "index": 16,
+   "url": "https://stackoverflow.com/questions/1789945/how-to-check-whether-a-string-contains-a-substring-in-javascript",
+   "title": "How to check whether a string contains a substring in JavaScript? - Stack Overflow",
+   "fav": "https://stackoverflow.com/Content/Sites/stackoverflow/Img/favicon.svg?v=916c1b91e14c",
+   "pinned": false
+  },
+  {
+   "id": 694917549,
+   "index": 17,
+   "url": "https://stackoverflow.com/questions/1789945/how-to-check-whether-a-string-contains-a-substring-in-javascript",
+   "title": "How to check whether a string contains a substring in JavaScript? - Stack Overflow",
+   "fav": "https://stackoverflow.com/Content/Sites/stackoverflow/Img/favicon.svg?v=916c1b91e14c",
+   "pinned": false
+  },
+  {
+   "id": 694917555,
+   "index": 18,
+   "url": "https://stackoverflow.com/questions/111102/how-do-javascript-closures-work",
+   "title": "function - How do JavaScript closures work? - Stack Overflow",
+   "fav": "https://stackoverflow.com/Content/Sites/stackoverflow/Img/favicon.svg?v=916c1b91e14c",
+   "pinned": false
+  },
+  {
+   "id": 694917560,
+   "index": 19,
+   "url": "https://stackoverflow.com/questions/1789945/how-to-check-whether-a-string-contains-a-substring-in-javascript",
+   "title": "How to check whether a string contains a substring in JavaScript? - Stack Overflow",
+   "fav": "https://stackoverflow.com/Content/Sites/stackoverflow/Img/favicon.svg?v=916c1b91e14c",
+   "pinned": false
+  },
+  {
+   "id": 694917543,
+   "index": 20,
+   "url": "https://en.wikipedia.org/wiki/JavaScript",
+   "title": "JavaScript - Wikipedia",
+   "fav": "https://en.wikipedia.org/static/favicon/wikipedia.ico",
+   "pinned": false
+  },
+  {
+   "id": 694917551,
+   "index": 21,
+   "url": "https://en.wikipedia.org/wiki/CSS",
+   "title": "CSS - Wikipedia",
+   "fav": "https://en.wikipedia.org/static/favicon/wikipedia.ico",
+   "pinned": false
+  },
+  {
+   "id": 694917561,
+   "index": 22,
+   "url": "https://en.wikipedia.org/wiki/HTML",
+   "title": "HTML - Wikipedia",
+   "fav": "https://en.wikipedia.org/static/favicon/wikipedia.ico",
+   "pinned": false
+  },
+  {
+   "id": 694917550,
+   "index": 23,
+   "url": "https://www.youtube.com/@Fireship",
+   "title": "Fireship - YouTube",
+   "fav": "https://www.youtube.com/s/desktop/af0a3c1e/img/favicon.ico",
+   "pinned": false
+  }
+ ],
+ "pop-reordered": {
+  "h": 413,
+  "boxes": {
+   "reorder": {
+    "x": 15,
+    "y": 113,
+    "w": 310,
+    "h": 40,
+    "text": "REORDER TABS →",
+    "visible": true
+   },
+   "undo": {
+    "x": 15,
+    "y": 159,
+    "w": 152,
+    "h": 30,
+    "text": "↩ UNDO",
+    "visible": true
+   },
+   "count": {
+    "x": 182,
+    "y": 183,
+    "w": 134,
+    "h": 14,
+    "text": "8 hosts",
+    "visible": true
+   },
+   "dupCount": {
+    "x": 24,
+    "y": 235,
+    "w": 134,
+    "h": 14,
+    "text": "3 groups · 6 extra",
+    "visible": true
+   },
+   "bulkClose": {
+    "x": 173,
+    "y": 211,
+    "w": 152,
+    "h": 30,
+    "text": "CLOSE 6",
+    "visible": true
+   },
+   "bulkUndo": {
+    "x": 0,
+    "y": 0,
+    "w": 0,
+    "h": 0,
+    "text": "↩ Undo bulk close",
+    "visible": false
+   },
+   "dedupeUndo": {
+    "x": 0,
+    "y": 0,
+    "w": 0,
+    "h": 0,
+    "text": "↩ Undo last dup",
+    "visible": false
+   },
+   "auto": {
+    "x": 15,
+    "y": 265,
+    "w": 310,
+    "h": 30,
+    "text": "AUTO REORDER",
+    "visible": true
+   },
+   "status": {
+    "x": 15,
+    "y": 353,
+    "w": 310,
+    "h": 14,
+    "text": "GROUPED ✓",
+    "visible": true
+   },
+   "dedupe": {
+    "x": 26,
+    "y": 426,
+    "w": 288,
+    "h": 30,
+    "text": "",
+    "visible": true
+   }
+  }
+ },
+ "badgeBulk": "6",
+ "S3": [
+  {
+   "id": 694917539,
+   "index": 0,
+   "url": "https://www.youtube.com/",
+   "title": "YouTube",
+   "fav": "https://www.youtube.com/s/desktop/af0a3c1e/img/favicon.ico",
+   "pinned": true
+  },
+  {
+   "id": 694917541,
+   "index": 1,
+   "url": "https://github.com/react/react",
+   "title": "GitHub - react/react: The library for web and native user interfaces. · GitHub",
+   "fav": "https://github.githubassets.com/favicons/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917548,
+   "index": 2,
+   "url": "https://github.com/vercel/next.js",
+   "title": "GitHub - vercel/next.js: The React Framework · GitHub",
+   "fav": "https://github.githubassets.com/favicons/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917559,
+   "index": 3,
+   "url": "https://github.com/TanStack/router",
+   "title": "GitHub - TanStack/router: 🤖 A client-first, server-capable, fully type-safe router and full-stack framework for the web (React and more). · GitHub",
+   "fav": "https://github.githubassets.com/favicons/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917545,
+   "index": 4,
+   "url": "https://developers.google.com/",
+   "title": "Google for Developers | Build with Gemini",
+   "fav": "https://www.gstatic.com/devrel-devsite/prod/v5be16d8c9f9402e54c2da2ff24cb75c148f5d2bc84c6f8dfc8b9e16ae456160b/developers/images/favicon-new.png",
+   "pinned": false
+  },
+  {
+   "id": 694917552,
+   "index": 5,
+   "url": "https://fonts.google.com/",
+   "title": "Browse Fonts - Google Fonts",
+   "fav": "https://www.gstatic.com/images/icons/material/apps/fonts/1x/catalog/v5/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917540,
+   "index": 6,
+   "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout",
+   "title": "CSS grid layout - CSS | MDN",
+   "fav": "https://developer.mozilla.org/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917554,
+   "index": 7,
+   "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout",
+   "title": "CSS flexible box layout - CSS | MDN",
+   "fav": "https://developer.mozilla.org/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917547,
+   "index": 8,
+   "url": "https://www.onlyfrontendjobs.com/jobs",
+   "title": "334 Live Frontend Jobs — React, Vue, Angular | OnlyFrontendJobs",
+   "fav": "https://www.onlyfrontendjobs.com/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917557,
+   "index": 9,
+   "url": "https://www.onlyfrontendjobs.com/",
+   "title": "Frontend Developer Jobs — React · Vue · Angular",
+   "fav": "https://www.onlyfrontendjobs.com/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917544,
+   "index": 10,
+   "url": "https://react.dev/learn",
+   "title": "Quick Start – React",
+   "fav": "https://react.dev/favicon-32x32.png",
+   "pinned": false
+  },
+  {
+   "id": 694917556,
+   "index": 11,
+   "url": "https://react.dev/reference/react",
+   "title": "React Reference Overview – React",
+   "fav": "https://react.dev/favicon-32x32.png",
+   "pinned": false
+  },
+  {
+   "id": 694917542,
+   "index": 12,
+   "url": "https://stackoverflow.com/questions/1789945/how-to-check-whether-a-string-contains-a-substring-in-javascript",
+   "title": "How to check whether a string contains a substring in JavaScript? - Stack Overflow",
+   "fav": "https://stackoverflow.com/Content/Sites/stackoverflow/Img/favicon.svg?v=916c1b91e14c",
+   "pinned": false
+  },
+  {
+   "id": 694917555,
+   "index": 13,
+   "url": "https://stackoverflow.com/questions/111102/how-do-javascript-closures-work",
+   "title": "function - How do JavaScript closures work? - Stack Overflow",
+   "fav": "https://stackoverflow.com/Content/Sites/stackoverflow/Img/favicon.svg?v=916c1b91e14c",
+   "pinned": false
+  },
+  {
+   "id": 694917543,
+   "index": 14,
+   "url": "https://en.wikipedia.org/wiki/JavaScript",
+   "title": "JavaScript - Wikipedia",
+   "fav": "https://en.wikipedia.org/static/favicon/wikipedia.ico",
+   "pinned": false
+  },
+  {
+   "id": 694917551,
+   "index": 15,
+   "url": "https://en.wikipedia.org/wiki/CSS",
+   "title": "CSS - Wikipedia",
+   "fav": "https://en.wikipedia.org/static/favicon/wikipedia.ico",
+   "pinned": false
+  },
+  {
+   "id": 694917561,
+   "index": 16,
+   "url": "https://en.wikipedia.org/wiki/HTML",
+   "title": "HTML - Wikipedia",
+   "fav": "https://en.wikipedia.org/static/favicon/wikipedia.ico",
+   "pinned": false
+  },
+  {
+   "id": 694917550,
+   "index": 17,
+   "url": "https://www.youtube.com/@Fireship",
+   "title": "Fireship - YouTube",
+   "fav": "https://www.youtube.com/s/desktop/af0a3c1e/img/favicon.ico",
+   "pinned": false
+  }
+ ],
+ "pop-closed": {
+  "h": 433,
+  "boxes": {
+   "reorder": {
+    "x": 15,
+    "y": 113,
+    "w": 310,
+    "h": 40,
+    "text": "REORDER TABS →",
+    "visible": true
+   },
+   "undo": {
+    "x": 15,
+    "y": 159,
+    "w": 152,
+    "h": 30,
+    "text": "↩ UNDO",
+    "visible": true
+   },
+   "count": {
+    "x": 182,
+    "y": 183,
+    "w": 134,
+    "h": 14,
+    "text": "8 hosts",
+    "visible": true
+   },
+   "dupCount": {
+    "x": 24,
+    "y": 235,
+    "w": 134,
+    "h": 14,
+    "text": "0 extra",
+    "visible": true
+   },
+   "bulkClose": {
+    "x": 173,
+    "y": 211,
+    "w": 152,
+    "h": 30,
+    "text": "NO DUPS",
+    "visible": true
+   },
+   "bulkUndo": {
+    "x": 15,
+    "y": 263,
+    "w": 310,
+    "h": 14,
+    "text": "↩ Undo bulk (6)",
+    "visible": true
+   },
+   "dedupeUndo": {
+    "x": 0,
+    "y": 0,
+    "w": 0,
+    "h": 0,
+    "text": "↩ Undo last dup",
+    "visible": false
+   },
+   "auto": {
+    "x": 15,
+    "y": 285,
+    "w": 310,
+    "h": 30,
+    "text": "AUTO REORDER",
+    "visible": true
+   },
+   "status": {
+    "x": 15,
+    "y": 373,
+    "w": 310,
+    "h": 14,
+    "text": "CLOSED 6 in 3 groups ✓",
+    "visible": true
+   },
+   "dedupe": {
+    "x": 26,
+    "y": 446,
+    "w": 288,
+    "h": 30,
+    "text": "",
+    "visible": true
+   }
+  }
+ },
+ "pop-dedupe-on": {
+  "h": 552,
+  "boxes": {
+   "reorder": {
+    "x": 15,
+    "y": 113,
+    "w": 310,
+    "h": 40,
+    "text": "REORDER TABS →",
+    "visible": true
+   },
+   "undo": {
+    "x": 15,
+    "y": 159,
+    "w": 152,
+    "h": 30,
+    "text": "↩ UNDO",
+    "visible": true
+   },
+   "count": {
+    "x": 182,
+    "y": 183,
+    "w": 134,
+    "h": 14,
+    "text": "8 hosts",
+    "visible": true
+   },
+   "dupCount": {
+    "x": 24,
+    "y": 235,
+    "w": 134,
+    "h": 14,
+    "text": "0 extra",
+    "visible": true
+   },
+   "bulkClose": {
+    "x": 173,
+    "y": 211,
+    "w": 152,
+    "h": 30,
+    "text": "NO DUPS",
+    "visible": true
+   },
+   "bulkUndo": {
+    "x": 15,
+    "y": 263,
+    "w": 310,
+    "h": 14,
+    "text": "↩ Undo bulk (6)",
+    "visible": true
+   },
+   "dedupeUndo": {
+    "x": 0,
+    "y": 0,
+    "w": 0,
+    "h": 0,
+    "text": "↩ Undo last dup",
+    "visible": false
+   },
+   "auto": {
+    "x": 15,
+    "y": 285,
+    "w": 310,
+    "h": 30,
+    "text": "AUTO REORDER",
+    "visible": true
+   },
+   "status": {
+    "x": 15,
+    "y": 492,
+    "w": 310,
+    "h": 14,
+    "text": "CLOSED 6 in 3 groups ✓",
+    "visible": true
+   },
+   "dedupe": {
+    "x": 26,
+    "y": 447,
+    "w": 288,
+    "h": 30,
+    "text": "DEDUP ON OPEN exact URL",
+    "visible": true
+   }
+  }
+ },
+ "S4": [
+  {
+   "id": 694917539,
+   "index": 0,
+   "url": "https://www.youtube.com/",
+   "title": "YouTube",
+   "fav": "https://www.youtube.com/s/desktop/af0a3c1e/img/favicon.ico",
+   "pinned": true
+  },
+  {
+   "id": 694917541,
+   "index": 1,
+   "url": "https://github.com/react/react",
+   "title": "GitHub - react/react: The library for web and native user interfaces. · GitHub",
+   "fav": "https://github.githubassets.com/favicons/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917548,
+   "index": 2,
+   "url": "https://github.com/vercel/next.js",
+   "title": "GitHub - vercel/next.js: The React Framework · GitHub",
+   "fav": "https://github.githubassets.com/favicons/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917559,
+   "index": 3,
+   "url": "https://github.com/TanStack/router",
+   "title": "GitHub - TanStack/router: 🤖 A client-first, server-capable, fully type-safe router and full-stack framework for the web (React and more). · GitHub",
+   "fav": "https://github.githubassets.com/favicons/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917545,
+   "index": 4,
+   "url": "https://developers.google.com/",
+   "title": "Google for Developers | Build with Gemini",
+   "fav": "https://www.gstatic.com/devrel-devsite/prod/v5be16d8c9f9402e54c2da2ff24cb75c148f5d2bc84c6f8dfc8b9e16ae456160b/developers/images/favicon-new.png",
+   "pinned": false
+  },
+  {
+   "id": 694917552,
+   "index": 5,
+   "url": "https://fonts.google.com/",
+   "title": "Browse Fonts - Google Fonts",
+   "fav": "https://www.gstatic.com/images/icons/material/apps/fonts/1x/catalog/v5/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917540,
+   "index": 6,
+   "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout",
+   "title": "CSS grid layout - CSS | MDN",
+   "fav": "https://developer.mozilla.org/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917554,
+   "index": 7,
+   "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout",
+   "title": "CSS flexible box layout - CSS | MDN",
+   "fav": "https://developer.mozilla.org/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917547,
+   "index": 8,
+   "url": "https://www.onlyfrontendjobs.com/jobs",
+   "title": "334 Live Frontend Jobs — React, Vue, Angular | OnlyFrontendJobs",
+   "fav": "https://www.onlyfrontendjobs.com/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917557,
+   "index": 9,
+   "url": "https://www.onlyfrontendjobs.com/",
+   "title": "Frontend Developer Jobs — React · Vue · Angular",
+   "fav": "https://www.onlyfrontendjobs.com/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917544,
+   "index": 10,
+   "url": "https://react.dev/learn",
+   "title": "Quick Start – React",
+   "fav": "https://react.dev/favicon-32x32.png",
+   "pinned": false
+  },
+  {
+   "id": 694917556,
+   "index": 11,
+   "url": "https://react.dev/reference/react",
+   "title": "React Reference Overview – React",
+   "fav": "https://react.dev/favicon-32x32.png",
+   "pinned": false
+  },
+  {
+   "id": 694917542,
+   "index": 12,
+   "url": "https://stackoverflow.com/questions/1789945/how-to-check-whether-a-string-contains-a-substring-in-javascript",
+   "title": "How to check whether a string contains a substring in JavaScript? - Stack Overflow",
+   "fav": "https://stackoverflow.com/Content/Sites/stackoverflow/Img/favicon.svg?v=916c1b91e14c",
+   "pinned": false
+  },
+  {
+   "id": 694917555,
+   "index": 13,
+   "url": "https://stackoverflow.com/questions/111102/how-do-javascript-closures-work",
+   "title": "function - How do JavaScript closures work? - Stack Overflow",
+   "fav": "https://stackoverflow.com/Content/Sites/stackoverflow/Img/favicon.svg?v=916c1b91e14c",
+   "pinned": false
+  },
+  {
+   "id": 694917543,
+   "index": 14,
+   "url": "https://en.wikipedia.org/wiki/JavaScript",
+   "title": "JavaScript - Wikipedia",
+   "fav": "https://en.wikipedia.org/static/favicon/wikipedia.ico",
+   "pinned": false
+  },
+  {
+   "id": 694917551,
+   "index": 15,
+   "url": "https://en.wikipedia.org/wiki/CSS",
+   "title": "CSS - Wikipedia",
+   "fav": "https://en.wikipedia.org/static/favicon/wikipedia.ico",
+   "pinned": false
+  },
+  {
+   "id": 694917561,
+   "index": 16,
+   "url": "https://en.wikipedia.org/wiki/HTML",
+   "title": "HTML - Wikipedia",
+   "fav": "https://en.wikipedia.org/static/favicon/wikipedia.ico",
+   "pinned": false
+  },
+  {
+   "id": 694917550,
+   "index": 17,
+   "url": "https://www.youtube.com/@Fireship",
+   "title": "Fireship - YouTube",
+   "fav": "https://www.youtube.com/s/desktop/af0a3c1e/img/favicon.ico",
+   "pinned": false
+  },
+  {
+   "id": 694917571,
+   "index": 18,
+   "url": "",
+   "title": "",
+   "fav": "",
+   "pinned": false
+  }
+ ],
+ "S5": [
+  {
+   "id": 694917539,
+   "index": 0,
+   "url": "https://www.youtube.com/",
+   "title": "YouTube",
+   "fav": "https://www.youtube.com/s/desktop/af0a3c1e/img/favicon.ico",
+   "pinned": true
+  },
+  {
+   "id": 694917541,
+   "index": 1,
+   "url": "https://github.com/react/react",
+   "title": "GitHub - react/react: The library for web and native user interfaces. · GitHub",
+   "fav": "https://github.githubassets.com/favicons/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917548,
+   "index": 2,
+   "url": "https://github.com/vercel/next.js",
+   "title": "GitHub - vercel/next.js: The React Framework · GitHub",
+   "fav": "https://github.githubassets.com/favicons/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917559,
+   "index": 3,
+   "url": "https://github.com/TanStack/router",
+   "title": "GitHub - TanStack/router: 🤖 A client-first, server-capable, fully type-safe router and full-stack framework for the web (React and more). · GitHub",
+   "fav": "https://github.githubassets.com/favicons/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917545,
+   "index": 4,
+   "url": "https://developers.google.com/",
+   "title": "Google for Developers | Build with Gemini",
+   "fav": "https://www.gstatic.com/devrel-devsite/prod/v5be16d8c9f9402e54c2da2ff24cb75c148f5d2bc84c6f8dfc8b9e16ae456160b/developers/images/favicon-new.png",
+   "pinned": false
+  },
+  {
+   "id": 694917552,
+   "index": 5,
+   "url": "https://fonts.google.com/",
+   "title": "Browse Fonts - Google Fonts",
+   "fav": "https://www.gstatic.com/images/icons/material/apps/fonts/1x/catalog/v5/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917540,
+   "index": 6,
+   "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout",
+   "title": "CSS grid layout - CSS | MDN",
+   "fav": "https://developer.mozilla.org/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917554,
+   "index": 7,
+   "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout",
+   "title": "CSS flexible box layout - CSS | MDN",
+   "fav": "https://developer.mozilla.org/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917547,
+   "index": 8,
+   "url": "https://www.onlyfrontendjobs.com/jobs",
+   "title": "334 Live Frontend Jobs — React, Vue, Angular | OnlyFrontendJobs",
+   "fav": "https://www.onlyfrontendjobs.com/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917557,
+   "index": 9,
+   "url": "https://www.onlyfrontendjobs.com/",
+   "title": "Frontend Developer Jobs — React · Vue · Angular",
+   "fav": "https://www.onlyfrontendjobs.com/favicon.svg",
+   "pinned": false
+  },
+  {
+   "id": 694917544,
+   "index": 10,
+   "url": "https://react.dev/learn",
+   "title": "Quick Start – React",
+   "fav": "https://react.dev/favicon-32x32.png",
+   "pinned": false
+  },
+  {
+   "id": 694917556,
+   "index": 11,
+   "url": "https://react.dev/reference/react",
+   "title": "React Reference Overview – React",
+   "fav": "https://react.dev/favicon-32x32.png",
+   "pinned": false
+  },
+  {
+   "id": 694917542,
+   "index": 12,
+   "url": "https://stackoverflow.com/questions/1789945/how-to-check-whether-a-string-contains-a-substring-in-javascript",
+   "title": "How to check whether a string contains a substring in JavaScript? - Stack Overflow",
+   "fav": "https://stackoverflow.com/Content/Sites/stackoverflow/Img/favicon.svg?v=916c1b91e14c",
+   "pinned": false
+  },
+  {
+   "id": 694917555,
+   "index": 13,
+   "url": "https://stackoverflow.com/questions/111102/how-do-javascript-closures-work",
+   "title": "function - How do JavaScript closures work? - Stack Overflow",
+   "fav": "https://stackoverflow.com/Content/Sites/stackoverflow/Img/favicon.svg?v=916c1b91e14c",
+   "pinned": false
+  },
+  {
+   "id": 694917543,
+   "index": 14,
+   "url": "https://en.wikipedia.org/wiki/JavaScript",
+   "title": "JavaScript - Wikipedia",
+   "fav": "https://en.wikipedia.org/static/favicon/wikipedia.ico",
+   "pinned": false
+  },
+  {
+   "id": 694917551,
+   "index": 15,
+   "url": "https://en.wikipedia.org/wiki/CSS",
+   "title": "CSS - Wikipedia",
+   "fav": "https://en.wikipedia.org/static/favicon/wikipedia.ico",
+   "pinned": false
+  },
+  {
+   "id": 694917561,
+   "index": 16,
+   "url": "https://en.wikipedia.org/wiki/HTML",
+   "title": "HTML - Wikipedia",
+   "fav": "https://en.wikipedia.org/static/favicon/wikipedia.ico",
+   "pinned": false
+  },
+  {
+   "id": 694917550,
+   "index": 17,
+   "url": "https://www.youtube.com/@Fireship",
+   "title": "Fireship - YouTube",
+   "fav": "https://www.youtube.com/s/desktop/af0a3c1e/img/favicon.ico",
+   "pinned": false
+  }
+ ],
+ "dedupe": {
+  "openedId": 694917571,
+  "badge": "dup",
+  "activeAfter": "https://github.com/react/react",
+  "beforeCount": 18
+ },
+ "pop-dedupe-undo": {
+  "h": 449,
+  "boxes": {
+   "reorder": {
+    "x": 15,
+    "y": 113,
+    "w": 310,
+    "h": 40,
+    "text": "REORDER TABS →",
+    "visible": true
+   },
+   "undo": {
+    "x": 15,
+    "y": 159,
+    "w": 152,
+    "h": 30,
+    "text": "↩ UNDO",
+    "visible": true
+   },
+   "count": {
+    "x": 182,
+    "y": 183,
+    "w": 134,
+    "h": 14,
+    "text": "8 hosts",
+    "visible": true
+   },
+   "dupCount": {
+    "x": 24,
+    "y": 235,
+    "w": 134,
+    "h": 14,
+    "text": "0 extra",
+    "visible": true
+   },
+   "bulkClose": {
+    "x": 173,
+    "y": 211,
+    "w": 152,
+    "h": 30,
+    "text": "NO DUPS",
+    "visible": true
+   },
+   "bulkUndo": {
+    "x": 15,
+    "y": 263,
+    "w": 310,
+    "h": 14,
+    "text": "↩ Undo bulk (6)",
+    "visible": true
+   },
+   "dedupeUndo": {
+    "x": 15,
+    "y": 283,
+    "w": 310,
+    "h": 14,
+    "text": "↩ Undo dup: https://github.com/react/rea",
+    "visible": true
+   },
+   "auto": {
+    "x": 15,
+    "y": 305,
+    "w": 310,
+    "h": 30,
+    "text": "AUTO REORDER",
+    "visible": true
+   },
+   "status": {
+    "x": 15,
+    "y": 393,
+    "w": 310,
+    "h": 10,
+    "text": "",
+    "visible": true
+   },
+   "dedupe": {
+    "x": 26,
+    "y": 466,
+    "w": 288,
+    "h": 30,
+    "text": "",
+    "visible": true
+   }
+  }
+ },
+ "favs": {
+  "www.youtube.com": "/projects/sandbox/eksaath-video/cap/fav/www.youtube.com.ico",
+  "developer.mozilla.org": "/projects/sandbox/eksaath-video/cap/fav/developer.mozilla.org.svg",
+  "github.com": "/projects/sandbox/eksaath-video/cap/fav/github.com.svg",
+  "stackoverflow.com": "/projects/sandbox/eksaath-video/cap/fav/stackoverflow.com.svg",
+  "en.wikipedia.org": "/projects/sandbox/eksaath-video/cap/fav/en.wikipedia.org.ico",
+  "react.dev": "/projects/sandbox/eksaath-video/cap/fav/react.dev.png",
+  "developers.google.com": "/projects/sandbox/eksaath-video/cap/fav/developers.google.com.png",
+  "www.onlyfrontendjobs.com": "/projects/sandbox/eksaath-video/cap/fav/www.onlyfrontendjobs.com.svg",
+  "fonts.google.com": "/projects/sandbox/eksaath-video/cap/fav/fonts.google.com.svg"
+ },
+ "store": {
+  "add": {
+   "x": 1109.015625,
+   "y": 262,
+   "width": 146.984375,
+   "height": 40
+  },
+  "title": {
+   "x": 260,
+   "y": 261.5,
+   "width": 724,
+   "height": 41
+  },
+  "dsf": 1
+ }
+}
