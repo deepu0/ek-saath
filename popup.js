@@ -65,54 +65,62 @@ async function checkUndos(){
     $("dedupeUndo").classList.add("show");
     $("dedupeUndo").textContent = `↩ Undo dup: ${d.lastDedupe.url.slice(0,28)}`;
   } else $("dedupeUndo").classList.remove("show");
-  if (d.lastBulkClosed && Date.now() - d.lastBulkClosed.closedAt < 30000) {
+  if (d.lastBulkClosed && Date.now() - d.lastBulkClosed.closedAt < 30000 && d.lastBulkClosed.urls) {
     $("bulkUndo").classList.add("show");
     $("bulkUndo").textContent = `↩ Undo bulk (${d.lastBulkClosed.urls.length})`;
   } else $("bulkUndo").classList.remove("show");
 }
 
+let statusTimer = null;
+function flash(text, ms = 1600){
+  $("status").textContent = text;
+  clearTimeout(statusTimer);
+  if (ms) statusTimer = setTimeout(()=> $("status").textContent = "", ms);
+}
+async function send(action){
+  try { return await chrome.runtime.sendMessage({action}) || {ok:false, error:"no response"}; }
+  catch(e){ return {ok:false, error:String(e && e.message || e)}; }
+}
+
 $("reorder").onclick = async()=>{
-  $("status").textContent = "REORDERING…";
-  await chrome.runtime.sendMessage({action:"reorder"});
-  setTimeout(async()=>{
-    const d = await chrome.storage.local.get("lastGroups");
-    if (d.lastGroups) renderGroups(d.lastGroups);
-    refreshDupCount();
-    $("status").textContent = "GROUPED ✓";
-    setTimeout(()=> $("status").textContent="",1400);
-    const win = await chrome.windows.getCurrent();
-    const data = await chrome.storage.local.get(`lastOrder_${win.id}`);
-    $("undo").disabled = !data[`lastOrder_${win.id}`];
-  }, 400);
+  flash("REORDERING…", 0);
+  const r = await send("reorder");
+  if (r.busy) return flash("ALREADY REORDERING…");
+  if (!r.ok) return flash("COULDN’T REORDER — TRY AGAIN", 2400);
+  if (r.groups) renderGroups(r.groups);
+  refreshDupCount();
+  flash("GROUPED ✓", 1400);
+  const win = await chrome.windows.getCurrent();
+  const data = await chrome.storage.local.get(`lastOrder_${win.id}`);
+  $("undo").disabled = !data[`lastOrder_${win.id}`];
 };
 
 $("undo").onclick = async()=>{
-  $("status").textContent = "RESTORING…";
-  await chrome.runtime.sendMessage({action:"undo"});
-  $("status").textContent = "RESTORED ↩";
-  setTimeout(()=> $("status").textContent="",1400);
+  flash("RESTORING…", 0);
+  const r = await send("undo");
+  flash(r.ok ? "RESTORED ↩" : "NOTHING TO UNDO", 1400);
 };
 
 $("bulkClose").onclick = async()=>{
-  $("status").textContent = "CLOSING DUPS…";
-  const r = await chrome.runtime.sendMessage({action:"bulkClose"});
-  $("status").textContent = r.closed ? `CLOSED ${r.closed} in ${r.groups} groups ✓` : "NO DUPS";
+  flash("CLOSING DUPS…", 0);
+  const r = await send("bulkClose");
+  if (r.error) flash("COULDN’T CLOSE — TRY AGAIN", 2400);
+  else flash(r.closed ? `CLOSED ${r.closed} in ${r.groups} groups ✓` : "NO DUPS", 1800);
   refreshDupCount();
   checkUndos();
-  setTimeout(()=> $("status").textContent="",1800);
 };
 
 $("bulkUndo").onclick = async()=>{
-  await chrome.runtime.sendMessage({action:"undoBulk"});
+  const r = await send("undoBulk");
   $("bulkUndo").classList.remove("show");
-  $("status").textContent = "BULK RESTORED ↩";
+  flash(r.ok ? "BULK RESTORED ↩" : "UNDO EXPIRED", 1600);
   refreshDupCount();
 };
 
 $("dedupeUndo").onclick = async()=>{
-  await chrome.runtime.sendMessage({action:"undoDedupe"});
+  const r = await send("undoDedupe");
   $("dedupeUndo").classList.remove("show");
-  $("status").textContent = "DUP RESTORED ↩";
+  flash(r.ok ? "DUP RESTORED ↩" : "UNDO EXPIRED", 1600);
 };
 
 $("auto").onclick = ()=> save({autoReorder: !settings.autoReorder});

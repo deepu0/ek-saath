@@ -3,7 +3,9 @@ importScripts("domain.js", "reorder.js");
 let isReordering = false;
 let debounceTimer = null;
 const DEBOUNCE_MS = 800;
-let dedupeTimer = null;
+const DEDUPE_UNDO_MS = 10000;
+const BULK_UNDO_MS = 30000;
+const ACCENT = "#FF3B1F";
 
 async function getSettings() {
   const defaults = {
@@ -14,171 +16,210 @@ async function getSettings() {
     dedupeWhitelist: []
   };
   const data = await chrome.storage.local.get(defaults);
-  // ensure whitelist is array
   if (typeof data.dedupeWhitelist === "string") {
     data.dedupeWhitelist = data.dedupeWhitelist.split(",").map(s=>s.trim()).filter(Boolean);
   }
   return { ...defaults, ...data };
 }
 
+function flashBadge(text, ms = 1200) {
+  chrome.action.setBadgeBackgroundColor({ color: ACCENT });
+  chrome.action.setBadgeText({ text });
+  setTimeout(()=> chrome.action.setBadgeText({ text: "" }), ms);
+}
+
+async function currentWindowId() {
+  const win = await chrome.windows.getCurrent();
+  return win.id;
+}
+
 async function doReorder(trigger = "manual") {
-  if (isReordering) return;
+  if (isReordering) return { ok: false, busy: true };
   isReordering = true;
   try {
     const s = await getSettings();
-    let result;
-    if (s.scopeAllWindows) {
-      result = await reorderAllWindows({ groupByRoot: s.groupByRoot });
-    } else {
-      const win = await chrome.windows.getCurrent();
-      if (chrome.runtime.lastError) throw new Error(chrome.runtime.lastError.message);
-      result = await reorderWindow(win.id, { groupByRoot: s.groupByRoot });
-      if (chrome.runtime.lastError) throw new Error(chrome.runtime.lastError.message);
-    }
+    const result = s.scopeAllWindows
+      ? await reorderAllWindows({ groupByRoot: s.groupByRoot })
+      : await reorderWindow(await currentWindowId(), { groupByRoot: s.groupByRoot });
     if (result && result.groups) await chrome.storage.local.set({ lastGroups: result.groups });
-    chrome.action.setBadgeText({ text: "✓" });
-    chrome.action.setBadgeBackgroundColor({ color: "#FF3B1F" });
-    setTimeout(()=> chrome.action.setBadgeText({text:""}), 1200);
-  } catch(e) {
-    console.error("reorder failed", e);
-    chrome.action.setBadgeText({ text: "!" });
-    setTimeout(()=> chrome.action.setBadgeText({text:""}), 1500);
+    flashBadge("✓");
+    return { ok: true, moved: result.moved, groups: result.groups };
+  } catch (e) {
+    console.error(`reorder (${trigger}) failed`, e);
+    flashBadge("!", 1500);
+    return { ok: false, error: String(e && e.message || e) };
   } finally {
     isReordering = false;
   }
 }
 
 async function doUndo() {
-  const win = await chrome.windows.getCurrent();
-  const res = await undoWindow(win.id);
-  if (res.error) {
-    chrome.action.setBadgeText({ text: "!" });
-    setTimeout(()=> chrome.action.setBadgeText({text:""}), 1200);
-  } else {
-    chrome.action.setBadgeText({ text: "↩" });
-    setTimeout(()=> chrome.action.setBadgeText({text:""}), 1200);
+  const s = await getSettings();
+  try {
+    const res = s.scopeAllWindows ? await undoAllWindows() : await undoWindow(await currentWindowId());
+    if (res.error) { flashBadge("!"); return { ok: false, error: res.error }; }
+    flashBadge("↩");
+    return { ok: true, restored: res.restored };
+  } catch (e) {
+    flashBadge("!");
+    return { ok: false, error: String(e && e.message || e) };
   }
 }
 
-// Dedupe: exact URL match, close new, focus old
-async function handleDedupe(tabId, newUrl) {
-  const s = await getSettings();
-  if (!s.dedupeEnabled) return;
-  if (!newUrl || isNeverDedupeUrl(newUrl, s.dedupeWhitelist)) return;
-  // debounce per tab
-  clearTimeout(dedupeTimer);
-  dedupeTimer = setTimeout(async()=>{
-    try {
-      const tab = await chrome.tabs.get(tabId);
-      if (!tab || tab.pinned) return;
-      if (isNeverDedupeUrl(tab.url, s.dedupeWhitelist)) return;
-      const tabs = await chrome.tabs.query({ windowId: tab.windowId });
-      const existing = tabs.find(t => t.id !== tabId && !t.pinned && t.url === tab.url && !isNeverDedupeUrl(t.url, s.dedupeWhitelist));
-      if (existing) {
-        await chrome.tabs.update(existing.id, { active: true });
-        await chrome.tabs.remove(tabId);
-        chrome.action.setBadgeText({ text: "dup" });
-        chrome.action.setBadgeBackgroundColor({ color: "#FF3B1F" });
-        setTimeout(()=> chrome.action.setBadgeText({text:""}), 1500);
-        // store for undo (10s)
-        await chrome.storage.local.set({ lastDedupe: { url: tab.url, closedAt: Date.now(), windowId: tab.windowId } });
-        setTimeout(async()=>{
-          const d = await chrome.storage.local.get("lastDedupe");
-          if (d.lastDedupe && Date.now() - d.lastDedupe.closedAt >= 10000) {
-            await chrome.storage.local.remove("lastDedupe");
-          }
-        }, 10000);
-      }
-    } catch(e){ console.warn("dedupe failed", e); }
-  }, 300);
+// ---------- Dedupe on open
+// Only a tab the user just OPENED is deduped, once, on its first real page load.
+// Navigating inside an existing tab (links, typing a URL, back/forward, SPA route changes) never closes it.
+// Pending new tabs live in storage.session so they survive a service-worker restart.
+const PENDING_KEY = "dedupePending";
+const PENDING_MAX_AGE_MS = 10 * 60 * 1000;
+
+async function getPending() {
+  const d = await chrome.storage.session.get(PENDING_KEY);
+  return d[PENDING_KEY] || {};
+}
+let pendingLock = Promise.resolve();
+function updatePending(fn) {   // serialise read-modify-write so concurrent events can't drop entries
+  const run = pendingLock.then(async()=>{
+    const p = await getPending();
+    const out = await fn(p);
+    await chrome.storage.session.set({ [PENDING_KEY]: p });
+    return out;
+  });
+  pendingLock = run.catch(()=>{});
+  return run;
 }
 
-async function undoDedupe(){
+// Tabs EkSaath itself reopens (undo) must not be deduped straight back.
+const ownCreates = new Map();   // url -> expiry
+function expectOwnCreate(url) { ownCreates.set(url, Date.now() + 5000); }
+function isOwnCreate(tab) {
+  const url = tab.pendingUrl || tab.url;
+  const exp = ownCreates.get(url);
+  if (exp && exp > Date.now()) { ownCreates.delete(url); return true; }
+  return false;
+}
+const STARTUP_GRACE_MS = 20000;   // tabs brought back by session restore are not "just opened"
+
+function markNewTab(tab) {
+  if (tab.pinned || isOwnCreate(tab)) return;
+  // enqueue synchronously so this always runs before the tab's first onUpdated check
+  return updatePending(async p => {
+    const s = await getSettings();
+    if (!s.dedupeEnabled) return;
+    const { startupAt = 0 } = await chrome.storage.session.get("startupAt");
+    const now = Date.now();
+    if (now - startupAt < STARTUP_GRACE_MS) return;
+    for (const [id, at] of Object.entries(p)) if (now - at > PENDING_MAX_AGE_MS) delete p[id];
+    p[tab.id] = now;
+  });
+}
+
+async function checkNewTab(tabId, tab) {
+  const url = tab.url;
+  // New-tab page / about:blank are not the page the user asked for yet — keep waiting.
+  if (isBlankUrl(url)) return;
+  const pendingAt = await updatePending(p => { const at = p[tabId]; delete p[tabId]; return at; });
+  if (!pendingAt || Date.now() - pendingAt > PENDING_MAX_AGE_MS) return;
+  const s = await getSettings();
+  if (!s.dedupeEnabled || tab.pinned || isNeverDedupeUrl(url, s.dedupeWhitelist)) return;
+  const tabs = await chrome.tabs.query({ windowId: tab.windowId });
+  const existing = tabs
+    .filter(t => t.id !== tabId && !t.pinned && t.url === url)
+    .sort((a, b) => a.index - b.index)[0];
+  if (!existing) return;
+  await chrome.tabs.update(existing.id, { active: true });
+  await chrome.tabs.remove(tabId);
+  flashBadge("dup", 1500);
+  await chrome.storage.local.set({ lastDedupe: { url, closedAt: Date.now(), windowId: tab.windowId, index: tab.index } });
+}
+
+async function undoDedupe() {
   const d = await chrome.storage.local.get("lastDedupe");
-  if (!d.lastDedupe) return { error: "no dedupe" };
-  await chrome.tabs.create({ url: d.lastDedupe.url, active: true });
+  const last = d.lastDedupe;
   await chrome.storage.local.remove("lastDedupe");
+  if (!last || Date.now() - last.closedAt > DEDUPE_UNDO_MS) return { error: "expired" };
+  await createTabBack({ url: last.url, windowId: last.windowId, index: last.index }, true);
   return { ok: true };
 }
 
-async function bulkCloseDuplicates(){
-  const s = await getSettings();
-  const query = s.scopeAllWindows ? {} : { windowId: (await chrome.windows.getCurrent()).id };
-  const tabs = await chrome.tabs.query(query);
-  // group by exact URL, keep oldest (lowest index)
-  const seen = new Map();
-  const toClose = [];
-  // sort by window then index to keep oldest
-  tabs.sort((a,b)=> a.windowId - b.windowId || a.index - b.index);
-  for (const t of tabs) {
-    if (t.pinned) continue;
-    if (!t.url || isNeverDedupeUrl(t.url, s.dedupeWhitelist)) continue;
-    if (seen.has(t.url)) {
-      toClose.push(t);
-    } else {
-      seen.set(t.url, t);
-    }
+// ---------- Bulk close duplicates
+function dupScopeQuery(s, windowId) { return s.scopeAllWindows ? {} : { windowId }; }
+
+function findDuplicates(tabs, whitelist) {
+  // group by exact URL per window scope, keep the oldest (lowest window, then lowest index)
+  const sorted = [...tabs].sort((a, b) => a.windowId - b.windowId || a.index - b.index);
+  const seen = new Set();
+  const extra = [];
+  for (const t of sorted) {
+    if (t.pinned || !t.url || isNeverDedupeUrl(t.url, whitelist)) continue;
+    if (seen.has(t.url)) extra.push(t); else seen.add(t.url);
   }
+  return extra;
+}
+
+async function bulkCloseDuplicates() {
+  const s = await getSettings();
+  const tabs = await chrome.tabs.query(dupScopeQuery(s, await currentWindowId()));
+  const toClose = findDuplicates(tabs, s.dedupeWhitelist);
   if (toClose.length === 0) return { closed: 0, groups: 0 };
-  const ids = toClose.map(t=>t.id);
-  const urls = toClose.map(t=>t.url);
-  await chrome.tabs.remove(ids);
-  // store for bulk undo 30s
-  await chrome.storage.local.set({ lastBulkClosed: { urls, closedAt: Date.now() } });
-  setTimeout(async()=>{
-    const d = await chrome.storage.local.get("lastBulkClosed");
-    if (d.lastBulkClosed && Date.now() - d.lastBulkClosed.closedAt >= 30000) {
-      await chrome.storage.local.remove("lastBulkClosed");
-    }
-  }, 30000);
-  chrome.action.setBadgeText({ text: String(toClose.length) });
-  chrome.action.setBadgeBackgroundColor({ color: "#FF3B1F" });
-  setTimeout(()=> chrome.action.setBadgeText({text:""}), 2000);
-  const dupGroups = [...seen.values()].filter(v => tabs.filter(t=>t.url===v.url).length >1).length;
-  // actual dup groups with extra copies
-  const groupsWithDup = new Set(toClose.map(t=>t.url)).size;
-  return { closed: toClose.length, groups: groupsWithDup };
+  // remember where each tab was so undo puts it back in the same window and position
+  const closed = toClose.map(t => ({ url: t.url, windowId: t.windowId, index: t.index }));
+  await chrome.tabs.remove(toClose.map(t => t.id));
+  await chrome.storage.local.set({ lastBulkClosed: { tabs: closed, urls: closed.map(t => t.url), closedAt: Date.now() } });
+  flashBadge(String(toClose.length), 2000);
+  return { closed: toClose.length, groups: new Set(toClose.map(t => t.url)).size };
 }
 
-async function undoBulkClose(){
+async function createTabBack({ url, windowId, index }, active) {
+  expectOwnCreate(url);
+  try {
+    await chrome.windows.get(windowId);
+    return await chrome.tabs.create({ url, windowId, index, active });
+  } catch {
+    return await chrome.tabs.create({ url, active });   // window is gone: reopen in the current one
+  }
+}
+
+async function undoBulkClose() {
   const d = await chrome.storage.local.get("lastBulkClosed");
-  if (!d.lastBulkClosed) return { error: "no bulk" };
-  for (const url of d.lastBulkClosed.urls) {
-    await chrome.tabs.create({ url, active: false });
-  }
+  const last = d.lastBulkClosed;
   await chrome.storage.local.remove("lastBulkClosed");
-  return { ok: true, restored: d.lastBulkClosed.urls.length };
-}
-
-async function getDupCount(){
-  const s = await getSettings();
-  const query = s.scopeAllWindows ? {} : { windowId: (await chrome.windows.getCurrent()).id };
-  const tabs = await chrome.tabs.query(query);
-  const map = new Map();
-  for (const t of tabs) {
-    if (t.pinned || !t.url || isNeverDedupeUrl(t.url, s.dedupeWhitelist)) continue;
-    map.set(t.url, (map.get(t.url)||0)+1);
+  if (!last || Date.now() - last.closedAt > BULK_UNDO_MS) return { error: "expired" };
+  const items = last.tabs || last.urls.map(url => ({ url }));   // `urls` = data saved by 1.2.x
+  // ascending index per window: each insert lands exactly where the tab used to be
+  const ordered = [...items].sort((a, b) => (a.windowId ?? 0) - (b.windowId ?? 0) || (a.index ?? 0) - (b.index ?? 0));
+  for (const t of ordered) {
+    if (t.windowId == null) { expectOwnCreate(t.url); await chrome.tabs.create({ url: t.url, active: false }); }
+    else await createTabBack(t, false);
   }
-  let extra = 0, groups = 0;
-  for (const c of map.values()) if (c>1){ extra += c-1; groups+=1; }
-  return { extra, groups, total: tabs.length };
+  return { ok: true, restored: ordered.length };
 }
 
-// Messages
+async function getDupCount() {
+  const s = await getSettings();
+  const tabs = await chrome.tabs.query(dupScopeQuery(s, await currentWindowId()));
+  const extra = findDuplicates(tabs, s.dedupeWhitelist);
+  return { extra: extra.length, groups: new Set(extra.map(t => t.url)).size, total: tabs.length };
+}
+
+// ---------- wiring
+const HANDLERS = {
+  reorder: () => doReorder("popup"),
+  undo: () => doUndo(),
+  undoDedupe: () => undoDedupe(),
+  bulkClose: () => bulkCloseDuplicates(),
+  undoBulk: () => undoBulkClose(),
+  getDupCount: () => getDupCount(),
+  getSettings: () => getSettings()
+};
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
-  (async()=>{
-    if (msg.action === "reorder") { await doReorder("popup"); sendResponse({ok:true}); }
-    if (msg.action === "undo") { await doUndo(); sendResponse({ok:true}); }
-    if (msg.action === "undoDedupe") { const r = await undoDedupe(); sendResponse(r); }
-    if (msg.action === "bulkClose") { const r = await bulkCloseDuplicates(); sendResponse(r); }
-    if (msg.action === "undoBulk") { const r = await undoBulkClose(); sendResponse(r); }
-    if (msg.action === "getDupCount") { const r = await getDupCount(); sendResponse(r); }
-    if (msg.action === "getSettings") { sendResponse(await getSettings()); }
-  })();
+  const h = HANDLERS[msg && msg.action];
+  if (!h) return false;
+  h().then(sendResponse, e => sendResponse({ ok: false, error: String(e && e.message || e) }));
   return true;
 });
 
-chrome.commands.onCommand.addListener((command)=>{
+chrome.commands.onCommand.addListener((command) => {
   if (command === "reorder-tabs") doReorder("shortcut");
 });
 
@@ -186,27 +227,28 @@ async function maybeAutoReorder() {
   const s = await getSettings();
   if (!s.autoReorder) return;
   clearTimeout(debounceTimer);
-  debounceTimer = setTimeout(()=> doReorder("auto"), DEBOUNCE_MS);
+  debounceTimer = setTimeout(() => doReorder("auto"), DEBOUNCE_MS);
 }
 
-chrome.tabs.onCreated.addListener(maybeAutoReorder);
-chrome.tabs.onUpdated.addListener((id, change)=> {
-  if (change.url) {
-    maybeAutoReorder();
-    handleDedupe(id, change.url);
-  }
+chrome.runtime.onStartup.addListener(() => { chrome.storage.session.set({ startupAt: Date.now() }); });
+chrome.tabs.onCreated.addListener((tab) => {
+  markNewTab(tab)?.catch(e => console.warn("dedupe mark failed", e));
+  maybeAutoReorder();
 });
-// also handle dedupe for updated url via onUpdated, and for created tab that already has url
-chrome.tabs.onUpdated.addListener((id, info, tab)=>{
-  if (info.url) handleDedupe(id, info.url);
+chrome.tabs.onUpdated.addListener((tabId, info, tab) => {
+  if (info.url) maybeAutoReorder();
+  // First committed URL (already past HTTP redirects) or first finished load — whichever Chrome reports first.
+  // checkNewTab consumes the tab's pending mark, so it runs at most once per new tab.
+  if ((info.url && !isBlankUrl(info.url)) || info.status === "complete") checkNewTab(tabId, tab).catch(e => console.warn("dedupe failed", e));
 });
+chrome.tabs.onRemoved.addListener((tabId) => { updatePending(p => { delete p[tabId]; }); });
 
-chrome.runtime.onInstalled.addListener(()=>{
-  chrome.storage.local.get(["groupByRoot","autoReorder","scopeAllWindows","dedupeEnabled","dedupeWhitelist"], (v)=>{
-    if (v.groupByRoot === undefined) chrome.storage.local.set({groupByRoot:true});
-    if (v.autoReorder === undefined) chrome.storage.local.set({autoReorder:false});
-    if (v.scopeAllWindows === undefined) chrome.storage.local.set({scopeAllWindows:false});
-    if (v.dedupeEnabled === undefined) chrome.storage.local.set({dedupeEnabled:false});
-    if (v.dedupeWhitelist === undefined) chrome.storage.local.set({dedupeWhitelist:[]});
+chrome.runtime.onInstalled.addListener(() => {
+  chrome.storage.local.get(["groupByRoot","autoReorder","scopeAllWindows","dedupeEnabled","dedupeWhitelist"], (v) => {
+    if (v.groupByRoot === undefined) chrome.storage.local.set({ groupByRoot: true });
+    if (v.autoReorder === undefined) chrome.storage.local.set({ autoReorder: false });
+    if (v.scopeAllWindows === undefined) chrome.storage.local.set({ scopeAllWindows: false });
+    if (v.dedupeEnabled === undefined) chrome.storage.local.set({ dedupeEnabled: false });
+    if (v.dedupeWhitelist === undefined) chrome.storage.local.set({ dedupeWhitelist: [] });
   });
 });

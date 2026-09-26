@@ -1,0 +1,30 @@
+name: CI
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Syntax check
+        run: for f in background.js domain.js reorder.js popup.js options.js; do node --check "$f"; done
+      - name: Unit tests
+        run: npm test
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: End-to-end (real extension in Chromium)
+        run: npm run test:e2e
+      - name: Package
+        run: npm run pack
+      - uses: actions/upload-artifact@v4
+        with:
+          name: eksaath-zip
+          path: dist/*.zip

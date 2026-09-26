@@ -1,10 +1,22 @@
 // domain.js - root domain parser, no external deps
+// Public suffixes that are more than one label. Not the full Public Suffix List (kept tiny on purpose):
+// the common country second levels, plus hosting platforms where every subdomain is a different owner
+// (alice.github.io and bob.github.io must not be grouped as "github.io").
 const TWO_LEVEL_SUFFIXES = new Set([
-  "co.uk","org.uk","gov.uk","ac.uk",
-  "co.jp","ne.jp","or.jp",
-  "com.au","net.au","org.au",
-  "co.nz","co.in","co.za","com.br",
-  "com.cn","net.cn","org.cn"
+  "co.uk","org.uk","gov.uk","ac.uk","me.uk","ltd.uk","plc.uk",
+  "co.jp","ne.jp","or.jp","ac.jp","go.jp",
+  "com.au","net.au","org.au","edu.au","gov.au",
+  "co.nz","org.nz","net.nz",
+  "co.in","org.in","net.in","gov.in","ac.in","firm.in","gen.in",
+  "co.za","org.za",
+  "com.br","net.br","org.br","gov.br",
+  "com.cn","net.cn","org.cn","gov.cn",
+  "co.kr","or.kr","com.sg","com.my","com.hk","com.tw","co.id","co.th","com.ph","com.vn",
+  "com.mx","com.ar","com.co","com.pe","com.tr","co.il","com.sa","com.eg","com.ng","com.pk","com.bd","com.ua",
+  // hosting platforms
+  "github.io","gitlab.io","vercel.app","netlify.app","pages.dev","workers.dev","web.app","firebaseapp.com",
+  "herokuapp.com","onrender.com","fly.dev","appspot.com","azurewebsites.net","blogspot.com","wordpress.com",
+  "substack.com","notion.site","readthedocs.io","glitch.me","replit.app","surge.sh","neocities.org"
 ]);
 
 function stripPort(hostname) {
@@ -46,16 +58,9 @@ function getHostFromUrl(url) {
 
 function isProtectedUrl(url) {
   if (!url) return true;
-  // Allow chrome://newtab to be reordered (group as "newtab"), block only system pages
+  // The new tab page can be grouped ("newtab"); every other browser/system page keeps its place.
   if (url.startsWith("chrome://newtab")) return false;
-  return url.startsWith("chrome-extension://") ||
-         url.startsWith("edge://") ||
-         url.startsWith("about:") ||
-         url.startsWith("chrome-search://") ||
-         url.startsWith("devtools://") ||
-         url.startsWith("chrome://extensions") ||
-         url.startsWith("chrome://settings") ||
-         url.startsWith("chrome://history");
+  return /^(chrome|chrome-extension|chrome-search|chrome-untrusted|devtools|edge|brave|opera|vivaldi|about|view-source):/.test(url);
 }
 
 function getKeyForUrl(url, groupByRoot) {
@@ -66,6 +71,15 @@ function getKeyForUrl(url, groupByRoot) {
     try { return new URL(url).protocol.replace(":",""); } catch { return null; }
   }
   return groupByRoot ? getRootDomain(host) : host;
+}
+
+// A tab showing one of these hasn't reached the page the user asked for yet.
+function isBlankUrl(url) {
+  if (!url) return true;
+  return url === "about:blank" ||
+         url.startsWith("chrome://newtab") ||
+         url.startsWith("chrome-search://local-ntp") ||
+         url.startsWith("edge://newtab");
 }
 
 function isNeverDedupeUrl(url, whitelist = []) {
@@ -84,5 +98,5 @@ function isNeverDedupeUrl(url, whitelist = []) {
 
 // For testing in Node
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { getRootDomain, getHostFromUrl, isProtectedUrl, stripPort };
+  module.exports = { getRootDomain, getHostFromUrl, isProtectedUrl, stripPort, getKeyForUrl, isNeverDedupeUrl, isBlankUrl };
 }
