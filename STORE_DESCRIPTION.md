@@ -15,7 +15,7 @@ One click groups all tabs by domain: `1,2,3,4,1,3,4,2` → `1·1·1 — 2·2 —
 - **Groups by domain** — alphabetical, stable order. `mail.google.com` and `docs.google.com` become one `google.com` block.
 - **Shows duplicates** — live count: `2 groups · 5 extra tabs` right in the popup.
 - **Closes duplicates** — `CLOSE 5` keeps the oldest, closes the rest. Undo for 30s.
-- **Prevents future dups** — optional exact-URL dedupe when you open a tab (never touches pinned, chrome://newtab, localhost, or your whitelist).
+- **Prevents future dups** — optional: open a page you already have and EkSaath takes you to the existing tab instead. Only new tabs — a tab you are browsing in is never closed (never touches pinned, chrome://newtab, localhost, or your whitelist).
 
 **Why install:**
 - Find tabs instantly — no more scanning 50 favicons.

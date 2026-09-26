@@ -33,9 +33,10 @@ Minimal, industrial UI. Reorder only — no tab groups clutter.
 ## Features
 
 - **Reorder by root domain** — alphabetical, stable. `mail.google.com` = `google.com`
-- **Dedupe on open** — exact URL, close new → focus old, 10s undo
-- **Bulk close duplicates** — `CLOSE 5` keeps oldest, live count `2 groups · 5 extra`, undo 30s
+- **Dedupe on open** (optional) — when you open a new tab whose page (after redirects) is already open in the window, EkSaath closes the new tab and focuses the old one. 10s undo. Tabs you are already browsing in are never closed
+- **Bulk close duplicates** — `CLOSE 5` keeps oldest, live count `2 groups · 5 extra`, undo 30s puts every tab back where it was
 - **Never dedupe:** pinned, `chrome://newtab`, `localhost`, whitelist
+- **Never moved:** pinned tabs stay first; `chrome://` / `about:` pages keep their place
 - **Minimal UI:** basic always, advanced collapsible. `Alt+Shift+R`
 
 ## Install
@@ -43,6 +44,15 @@ Minimal, industrial UI. Reorder only — no tab groups clutter.
 **Dev:** `chrome://extensions` → Developer mode → Load unpacked → select this folder
 
 **Store:** [Install from the Chrome Web Store](https://chromewebstore.google.com/detail/eksaath-%E2%80%94-group-tabs-by-d/dmbddhflionebnjhlopafpggcegkkklo) — live since Sep 2026 (3 users, 5.0/5 as of Sep 19, 2026)
+
+## Develop
+
+```sh
+npm ci
+npm test                                  # unit tests (domain + reorder logic)
+npx playwright install chromium && npm run test:e2e   # real extension in Chromium
+npm run pack                              # dist/eksaath-<version>.zip for the store
+```
 
 ## Privacy
 
